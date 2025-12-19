@@ -80,3 +80,6 @@ export const InvoiceType = $Enums.InvoiceType
 
 export type InvoiceStatus = $Enums.InvoiceStatus
 export const InvoiceStatus = $Enums.InvoiceStatus
+
+export type ApprovalDecision = $Enums.ApprovalDecision
+export const ApprovalDecision = $Enums.ApprovalDecision

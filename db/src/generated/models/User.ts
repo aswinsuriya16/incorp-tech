@@ -28,6 +28,7 @@ export type UserMinAggregateOutputType = {
   name: string | null
   email: string | null
   role: $Enums.Role | null
+  companyId: string | null
   createdAt: Date | null
 }
 
@@ -36,6 +37,7 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   email: string | null
   role: $Enums.Role | null
+  companyId: string | null
   createdAt: Date | null
 }
 
@@ -44,6 +46,7 @@ export type UserCountAggregateOutputType = {
   name: number
   email: number
   role: number
+  companyId: number
   createdAt: number
   _all: number
 }
@@ -54,6 +57,7 @@ export type UserMinAggregateInputType = {
   name?: true
   email?: true
   role?: true
+  companyId?: true
   createdAt?: true
 }
 
@@ -62,6 +66,7 @@ export type UserMaxAggregateInputType = {
   name?: true
   email?: true
   role?: true
+  companyId?: true
   createdAt?: true
 }
 
@@ -70,6 +75,7 @@ export type UserCountAggregateInputType = {
   name?: true
   email?: true
   role?: true
+  companyId?: true
   createdAt?: true
   _all?: true
 }
@@ -151,6 +157,7 @@ export type UserGroupByOutputType = {
   name: string
   email: string
   role: $Enums.Role
+  companyId: string | null
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -180,7 +187,9 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  companyId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   managedGroups?: Prisma.CompanyGroupListRelationFilter
   assignedGroups?: Prisma.BUGroupAssignmentListRelationFilter
   createdInvoices?: Prisma.InvoiceListRelationFilter
@@ -192,7 +201,9 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  company?: Prisma.CompanyOrderByWithRelationInput
   managedGroups?: Prisma.CompanyGroupOrderByRelationAggregateInput
   assignedGroups?: Prisma.BUGroupAssignmentOrderByRelationAggregateInput
   createdInvoices?: Prisma.InvoiceOrderByRelationAggregateInput
@@ -207,7 +218,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  companyId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   managedGroups?: Prisma.CompanyGroupListRelationFilter
   assignedGroups?: Prisma.BUGroupAssignmentListRelationFilter
   createdInvoices?: Prisma.InvoiceListRelationFilter
@@ -219,6 +232,7 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -233,6 +247,7 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -242,6 +257,7 @@ export type UserCreateInput = {
   email: string
   role: $Enums.Role
   createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   managedGroups?: Prisma.CompanyGroupCreateNestedManyWithoutManagerInput
   assignedGroups?: Prisma.BUGroupAssignmentCreateNestedManyWithoutBuInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatorInput
@@ -253,6 +269,7 @@ export type UserUncheckedCreateInput = {
   name: string
   email: string
   role: $Enums.Role
+  companyId?: string | null
   createdAt?: Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedCreateNestedManyWithoutManagerInput
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedCreateNestedManyWithoutBuInput
@@ -266,6 +283,7 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   managedGroups?: Prisma.CompanyGroupUpdateManyWithoutManagerNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUpdateManyWithoutBuNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatorNestedInput
@@ -277,6 +295,7 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedUpdateManyWithoutManagerNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedUpdateManyWithoutBuNestedInput
@@ -289,6 +308,7 @@ export type UserCreateManyInput = {
   name: string
   email: string
   role: $Enums.Role
+  companyId?: string | null
   createdAt?: Date | string
 }
 
@@ -305,6 +325,7 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -313,6 +334,7 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -321,6 +343,7 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -329,12 +352,23 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -349,6 +383,10 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type UserCreateNestedOneWithoutManagedGroupsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutManagedGroupsInput, Prisma.UserUncheckedCreateWithoutManagedGroupsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutManagedGroupsInput
@@ -361,6 +399,48 @@ export type UserUpdateOneRequiredWithoutManagedGroupsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutManagedGroupsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutManagedGroupsInput, Prisma.UserUpdateWithoutManagedGroupsInput>, Prisma.UserUncheckedUpdateWithoutManagedGroupsInput>
+}
+
+export type UserCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput> | Prisma.UserCreateWithoutCompanyInput[] | Prisma.UserUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInput | Prisma.UserCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.UserCreateManyCompanyInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput> | Prisma.UserCreateWithoutCompanyInput[] | Prisma.UserUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInput | Prisma.UserCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.UserCreateManyCompanyInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput> | Prisma.UserCreateWithoutCompanyInput[] | Prisma.UserUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInput | Prisma.UserCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutCompanyInput | Prisma.UserUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.UserCreateManyCompanyInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutCompanyInput | Prisma.UserUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutCompanyInput | Prisma.UserUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput> | Prisma.UserCreateWithoutCompanyInput[] | Prisma.UserUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInput | Prisma.UserCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutCompanyInput | Prisma.UserUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.UserCreateManyCompanyInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutCompanyInput | Prisma.UserUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutCompanyInput | Prisma.UserUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
 export type UserCreateNestedOneWithoutAssignedGroupsInput = {
@@ -411,6 +491,7 @@ export type UserCreateWithoutManagedGroupsInput = {
   email: string
   role: $Enums.Role
   createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   assignedGroups?: Prisma.BUGroupAssignmentCreateNestedManyWithoutBuInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatorInput
   approvals?: Prisma.InvoiceApprovalCreateNestedManyWithoutApproverInput
@@ -421,6 +502,7 @@ export type UserUncheckedCreateWithoutManagedGroupsInput = {
   name: string
   email: string
   role: $Enums.Role
+  companyId?: string | null
   createdAt?: Date | string
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedCreateNestedManyWithoutBuInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatorInput
@@ -449,6 +531,7 @@ export type UserUpdateWithoutManagedGroupsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUpdateManyWithoutBuNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatorNestedInput
   approvals?: Prisma.InvoiceApprovalUpdateManyWithoutApproverNestedInput
@@ -459,10 +542,73 @@ export type UserUncheckedUpdateWithoutManagedGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedUpdateManyWithoutBuNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatorNestedInput
   approvals?: Prisma.InvoiceApprovalUncheckedUpdateManyWithoutApproverNestedInput
+}
+
+export type UserCreateWithoutCompanyInput = {
+  id?: string
+  name: string
+  email: string
+  role: $Enums.Role
+  createdAt?: Date | string
+  managedGroups?: Prisma.CompanyGroupCreateNestedManyWithoutManagerInput
+  assignedGroups?: Prisma.BUGroupAssignmentCreateNestedManyWithoutBuInput
+  createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatorInput
+  approvals?: Prisma.InvoiceApprovalCreateNestedManyWithoutApproverInput
+}
+
+export type UserUncheckedCreateWithoutCompanyInput = {
+  id?: string
+  name: string
+  email: string
+  role: $Enums.Role
+  createdAt?: Date | string
+  managedGroups?: Prisma.CompanyGroupUncheckedCreateNestedManyWithoutManagerInput
+  assignedGroups?: Prisma.BUGroupAssignmentUncheckedCreateNestedManyWithoutBuInput
+  createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatorInput
+  approvals?: Prisma.InvoiceApprovalUncheckedCreateNestedManyWithoutApproverInput
+}
+
+export type UserCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput>
+}
+
+export type UserCreateManyCompanyInputEnvelope = {
+  data: Prisma.UserCreateManyCompanyInput | Prisma.UserCreateManyCompanyInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompanyInput, Prisma.UserUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompanyInput, Prisma.UserUncheckedUpdateWithoutCompanyInput>
+}
+
+export type UserUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutCompanyInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.StringFilter<"User"> | string
+  name?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  companyId?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
 export type UserCreateWithoutAssignedGroupsInput = {
@@ -471,6 +617,7 @@ export type UserCreateWithoutAssignedGroupsInput = {
   email: string
   role: $Enums.Role
   createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   managedGroups?: Prisma.CompanyGroupCreateNestedManyWithoutManagerInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatorInput
   approvals?: Prisma.InvoiceApprovalCreateNestedManyWithoutApproverInput
@@ -481,6 +628,7 @@ export type UserUncheckedCreateWithoutAssignedGroupsInput = {
   name: string
   email: string
   role: $Enums.Role
+  companyId?: string | null
   createdAt?: Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedCreateNestedManyWithoutManagerInput
   createdInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCreatorInput
@@ -509,6 +657,7 @@ export type UserUpdateWithoutAssignedGroupsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   managedGroups?: Prisma.CompanyGroupUpdateManyWithoutManagerNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatorNestedInput
   approvals?: Prisma.InvoiceApprovalUpdateManyWithoutApproverNestedInput
@@ -519,6 +668,7 @@ export type UserUncheckedUpdateWithoutAssignedGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedUpdateManyWithoutManagerNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatorNestedInput
@@ -531,6 +681,7 @@ export type UserCreateWithoutCreatedInvoicesInput = {
   email: string
   role: $Enums.Role
   createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   managedGroups?: Prisma.CompanyGroupCreateNestedManyWithoutManagerInput
   assignedGroups?: Prisma.BUGroupAssignmentCreateNestedManyWithoutBuInput
   approvals?: Prisma.InvoiceApprovalCreateNestedManyWithoutApproverInput
@@ -541,6 +692,7 @@ export type UserUncheckedCreateWithoutCreatedInvoicesInput = {
   name: string
   email: string
   role: $Enums.Role
+  companyId?: string | null
   createdAt?: Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedCreateNestedManyWithoutManagerInput
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedCreateNestedManyWithoutBuInput
@@ -569,6 +721,7 @@ export type UserUpdateWithoutCreatedInvoicesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   managedGroups?: Prisma.CompanyGroupUpdateManyWithoutManagerNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUpdateManyWithoutBuNestedInput
   approvals?: Prisma.InvoiceApprovalUpdateManyWithoutApproverNestedInput
@@ -579,6 +732,7 @@ export type UserUncheckedUpdateWithoutCreatedInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedUpdateManyWithoutManagerNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedUpdateManyWithoutBuNestedInput
@@ -591,6 +745,7 @@ export type UserCreateWithoutApprovalsInput = {
   email: string
   role: $Enums.Role
   createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   managedGroups?: Prisma.CompanyGroupCreateNestedManyWithoutManagerInput
   assignedGroups?: Prisma.BUGroupAssignmentCreateNestedManyWithoutBuInput
   createdInvoices?: Prisma.InvoiceCreateNestedManyWithoutCreatorInput
@@ -601,6 +756,7 @@ export type UserUncheckedCreateWithoutApprovalsInput = {
   name: string
   email: string
   role: $Enums.Role
+  companyId?: string | null
   createdAt?: Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedCreateNestedManyWithoutManagerInput
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedCreateNestedManyWithoutBuInput
@@ -629,6 +785,7 @@ export type UserUpdateWithoutApprovalsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   managedGroups?: Prisma.CompanyGroupUpdateManyWithoutManagerNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUpdateManyWithoutBuNestedInput
   createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatorNestedInput
@@ -639,10 +796,51 @@ export type UserUncheckedUpdateWithoutApprovalsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   managedGroups?: Prisma.CompanyGroupUncheckedUpdateManyWithoutManagerNestedInput
   assignedGroups?: Prisma.BUGroupAssignmentUncheckedUpdateManyWithoutBuNestedInput
   createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserCreateManyCompanyInput = {
+  id?: string
+  name: string
+  email: string
+  role: $Enums.Role
+  createdAt?: Date | string
+}
+
+export type UserUpdateWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedGroups?: Prisma.CompanyGroupUpdateManyWithoutManagerNestedInput
+  assignedGroups?: Prisma.BUGroupAssignmentUpdateManyWithoutBuNestedInput
+  createdInvoices?: Prisma.InvoiceUpdateManyWithoutCreatorNestedInput
+  approvals?: Prisma.InvoiceApprovalUpdateManyWithoutApproverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedGroups?: Prisma.CompanyGroupUncheckedUpdateManyWithoutManagerNestedInput
+  assignedGroups?: Prisma.BUGroupAssignmentUncheckedUpdateManyWithoutBuNestedInput
+  createdInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCreatorNestedInput
+  approvals?: Prisma.InvoiceApprovalUncheckedUpdateManyWithoutApproverNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -708,7 +906,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   email?: boolean
   role?: boolean
+  companyId?: boolean
   createdAt?: boolean
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
   managedGroups?: boolean | Prisma.User$managedGroupsArgs<ExtArgs>
   assignedGroups?: boolean | Prisma.User$assignedGroupsArgs<ExtArgs>
   createdInvoices?: boolean | Prisma.User$createdInvoicesArgs<ExtArgs>
@@ -721,7 +921,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   email?: boolean
   role?: boolean
+  companyId?: boolean
   createdAt?: boolean
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -729,7 +931,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   email?: boolean
   role?: boolean
+  companyId?: boolean
   createdAt?: boolean
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -737,23 +941,30 @@ export type UserSelectScalar = {
   name?: boolean
   email?: boolean
   role?: boolean
+  companyId?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "role" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "role" | "companyId" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
   managedGroups?: boolean | Prisma.User$managedGroupsArgs<ExtArgs>
   assignedGroups?: boolean | Prisma.User$assignedGroupsArgs<ExtArgs>
   createdInvoices?: boolean | Prisma.User$createdInvoicesArgs<ExtArgs>
   approvals?: boolean | Prisma.User$approvalsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
+}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
+}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    company: Prisma.$CompanyPayload<ExtArgs> | null
     managedGroups: Prisma.$CompanyGroupPayload<ExtArgs>[]
     assignedGroups: Prisma.$BUGroupAssignmentPayload<ExtArgs>[]
     createdInvoices: Prisma.$InvoicePayload<ExtArgs>[]
@@ -764,6 +975,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     email: string
     role: $Enums.Role
+    companyId: string | null
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1159,6 +1371,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  company<T extends Prisma.User$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   managedGroups<T extends Prisma.User$managedGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedGroups<T extends Prisma.User$assignedGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BUGroupAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdInvoices<T extends Prisma.User$createdInvoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdInvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1196,6 +1409,7 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly companyId: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
@@ -1446,6 +1660,10 @@ export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1516,6 +1734,10 @@ export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Users to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1582,6 +1804,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.company
+ */
+export type User$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
 }
 
 /**

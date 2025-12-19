@@ -28,7 +28,7 @@ export type InvoiceApprovalMinAggregateOutputType = {
   invoiceId: string | null
   approverId: string | null
   role: $Enums.Role | null
-  decision: string | null
+  decision: $Enums.ApprovalDecision | null
   remarks: string | null
   createdAt: Date | null
 }
@@ -38,7 +38,7 @@ export type InvoiceApprovalMaxAggregateOutputType = {
   invoiceId: string | null
   approverId: string | null
   role: $Enums.Role | null
-  decision: string | null
+  decision: $Enums.ApprovalDecision | null
   remarks: string | null
   createdAt: Date | null
 }
@@ -163,7 +163,7 @@ export type InvoiceApprovalGroupByOutputType = {
   invoiceId: string
   approverId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks: string
   createdAt: Date
   _count: InvoiceApprovalCountAggregateOutputType | null
@@ -194,7 +194,7 @@ export type InvoiceApprovalWhereInput = {
   invoiceId?: Prisma.StringFilter<"InvoiceApproval"> | string
   approverId?: Prisma.StringFilter<"InvoiceApproval"> | string
   role?: Prisma.EnumRoleFilter<"InvoiceApproval"> | $Enums.Role
-  decision?: Prisma.StringFilter<"InvoiceApproval"> | string
+  decision?: Prisma.EnumApprovalDecisionFilter<"InvoiceApproval"> | $Enums.ApprovalDecision
   remarks?: Prisma.StringFilter<"InvoiceApproval"> | string
   createdAt?: Prisma.DateTimeFilter<"InvoiceApproval"> | Date | string
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
@@ -222,7 +222,7 @@ export type InvoiceApprovalWhereUniqueInput = Prisma.AtLeast<{
   invoiceId?: Prisma.StringFilter<"InvoiceApproval"> | string
   approverId?: Prisma.StringFilter<"InvoiceApproval"> | string
   role?: Prisma.EnumRoleFilter<"InvoiceApproval"> | $Enums.Role
-  decision?: Prisma.StringFilter<"InvoiceApproval"> | string
+  decision?: Prisma.EnumApprovalDecisionFilter<"InvoiceApproval"> | $Enums.ApprovalDecision
   remarks?: Prisma.StringFilter<"InvoiceApproval"> | string
   createdAt?: Prisma.DateTimeFilter<"InvoiceApproval"> | Date | string
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
@@ -250,7 +250,7 @@ export type InvoiceApprovalScalarWhereWithAggregatesInput = {
   invoiceId?: Prisma.StringWithAggregatesFilter<"InvoiceApproval"> | string
   approverId?: Prisma.StringWithAggregatesFilter<"InvoiceApproval"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"InvoiceApproval"> | $Enums.Role
-  decision?: Prisma.StringWithAggregatesFilter<"InvoiceApproval"> | string
+  decision?: Prisma.EnumApprovalDecisionWithAggregatesFilter<"InvoiceApproval"> | $Enums.ApprovalDecision
   remarks?: Prisma.StringWithAggregatesFilter<"InvoiceApproval"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"InvoiceApproval"> | Date | string
 }
@@ -258,7 +258,7 @@ export type InvoiceApprovalScalarWhereWithAggregatesInput = {
 export type InvoiceApprovalCreateInput = {
   id?: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutApprovalsInput
@@ -270,7 +270,7 @@ export type InvoiceApprovalUncheckedCreateInput = {
   invoiceId: string
   approverId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
 }
@@ -278,7 +278,7 @@ export type InvoiceApprovalUncheckedCreateInput = {
 export type InvoiceApprovalUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutApprovalsNestedInput
@@ -290,7 +290,7 @@ export type InvoiceApprovalUncheckedUpdateInput = {
   invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -300,7 +300,7 @@ export type InvoiceApprovalCreateManyInput = {
   invoiceId: string
   approverId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
 }
@@ -308,7 +308,7 @@ export type InvoiceApprovalCreateManyInput = {
 export type InvoiceApprovalUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -318,7 +318,7 @@ export type InvoiceApprovalUncheckedUpdateManyInput = {
   invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -452,10 +452,14 @@ export type InvoiceApprovalUncheckedUpdateManyWithoutInvoiceNestedInput = {
   deleteMany?: Prisma.InvoiceApprovalScalarWhereInput | Prisma.InvoiceApprovalScalarWhereInput[]
 }
 
+export type EnumApprovalDecisionFieldUpdateOperationsInput = {
+  set?: $Enums.ApprovalDecision
+}
+
 export type InvoiceApprovalCreateWithoutApproverInput = {
   id?: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutApprovalsInput
@@ -465,7 +469,7 @@ export type InvoiceApprovalUncheckedCreateWithoutApproverInput = {
   id?: string
   invoiceId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
 }
@@ -504,7 +508,7 @@ export type InvoiceApprovalScalarWhereInput = {
   invoiceId?: Prisma.StringFilter<"InvoiceApproval"> | string
   approverId?: Prisma.StringFilter<"InvoiceApproval"> | string
   role?: Prisma.EnumRoleFilter<"InvoiceApproval"> | $Enums.Role
-  decision?: Prisma.StringFilter<"InvoiceApproval"> | string
+  decision?: Prisma.EnumApprovalDecisionFilter<"InvoiceApproval"> | $Enums.ApprovalDecision
   remarks?: Prisma.StringFilter<"InvoiceApproval"> | string
   createdAt?: Prisma.DateTimeFilter<"InvoiceApproval"> | Date | string
 }
@@ -512,7 +516,7 @@ export type InvoiceApprovalScalarWhereInput = {
 export type InvoiceApprovalCreateWithoutInvoiceInput = {
   id?: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
   approver: Prisma.UserCreateNestedOneWithoutApprovalsInput
@@ -522,7 +526,7 @@ export type InvoiceApprovalUncheckedCreateWithoutInvoiceInput = {
   id?: string
   approverId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
 }
@@ -557,7 +561,7 @@ export type InvoiceApprovalCreateManyApproverInput = {
   id?: string
   invoiceId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
 }
@@ -565,7 +569,7 @@ export type InvoiceApprovalCreateManyApproverInput = {
 export type InvoiceApprovalUpdateWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutApprovalsNestedInput
@@ -575,7 +579,7 @@ export type InvoiceApprovalUncheckedUpdateWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -584,7 +588,7 @@ export type InvoiceApprovalUncheckedUpdateManyWithoutApproverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -593,7 +597,7 @@ export type InvoiceApprovalCreateManyInvoiceInput = {
   id?: string
   approverId: string
   role: $Enums.Role
-  decision: string
+  decision: $Enums.ApprovalDecision
   remarks?: string
   createdAt?: Date | string
 }
@@ -601,7 +605,7 @@ export type InvoiceApprovalCreateManyInvoiceInput = {
 export type InvoiceApprovalUpdateWithoutInvoiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approver?: Prisma.UserUpdateOneRequiredWithoutApprovalsNestedInput
@@ -611,7 +615,7 @@ export type InvoiceApprovalUncheckedUpdateWithoutInvoiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -620,7 +624,7 @@ export type InvoiceApprovalUncheckedUpdateManyWithoutInvoiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   approverId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  decision?: Prisma.StringFieldUpdateOperationsInput | string
+  decision?: Prisma.EnumApprovalDecisionFieldUpdateOperationsInput | $Enums.ApprovalDecision
   remarks?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -698,7 +702,7 @@ export type $InvoiceApprovalPayload<ExtArgs extends runtime.Types.Extensions.Int
     invoiceId: string
     approverId: string
     role: $Enums.Role
-    decision: string
+    decision: $Enums.ApprovalDecision
     remarks: string
     createdAt: Date
   }, ExtArgs["result"]["invoiceApproval"]>
@@ -1130,7 +1134,7 @@ export interface InvoiceApprovalFieldRefs {
   readonly invoiceId: Prisma.FieldRef<"InvoiceApproval", 'String'>
   readonly approverId: Prisma.FieldRef<"InvoiceApproval", 'String'>
   readonly role: Prisma.FieldRef<"InvoiceApproval", 'Role'>
-  readonly decision: Prisma.FieldRef<"InvoiceApproval", 'String'>
+  readonly decision: Prisma.FieldRef<"InvoiceApproval", 'ApprovalDecision'>
   readonly remarks: Prisma.FieldRef<"InvoiceApproval", 'String'>
   readonly createdAt: Prisma.FieldRef<"InvoiceApproval", 'DateTime'>
 }

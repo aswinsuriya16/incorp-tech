@@ -168,6 +168,7 @@ export type CompanyWhereInput = {
   group?: Prisma.XOR<Prisma.CompanyGroupScalarRelationFilter, Prisma.CompanyGroupWhereInput>
   originalInvoices?: Prisma.InvoiceListRelationFilter
   carryInvoices?: Prisma.InvoiceListRelationFilter
+  users?: Prisma.UserListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -177,6 +178,7 @@ export type CompanyOrderByWithRelationInput = {
   group?: Prisma.CompanyGroupOrderByWithRelationInput
   originalInvoices?: Prisma.InvoiceOrderByRelationAggregateInput
   carryInvoices?: Prisma.InvoiceOrderByRelationAggregateInput
+  users?: Prisma.UserOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -190,6 +192,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   group?: Prisma.XOR<Prisma.CompanyGroupScalarRelationFilter, Prisma.CompanyGroupWhereInput>
   originalInvoices?: Prisma.InvoiceListRelationFilter
   carryInvoices?: Prisma.InvoiceListRelationFilter
+  users?: Prisma.UserListRelationFilter
 }, "id" | "name_groupId">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -216,6 +219,7 @@ export type CompanyCreateInput = {
   group: Prisma.CompanyGroupCreateNestedOneWithoutCompaniesInput
   originalInvoices?: Prisma.InvoiceCreateNestedManyWithoutOriginalCompanyInput
   carryInvoices?: Prisma.InvoiceCreateNestedManyWithoutCarryCompanyInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -224,6 +228,7 @@ export type CompanyUncheckedCreateInput = {
   groupId: string
   originalInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOriginalCompanyInput
   carryInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCarryCompanyInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -232,6 +237,7 @@ export type CompanyUpdateInput = {
   group?: Prisma.CompanyGroupUpdateOneRequiredWithoutCompaniesNestedInput
   originalInvoices?: Prisma.InvoiceUpdateManyWithoutOriginalCompanyNestedInput
   carryInvoices?: Prisma.InvoiceUpdateManyWithoutCarryCompanyNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -240,6 +246,7 @@ export type CompanyUncheckedUpdateInput = {
   groupId?: Prisma.StringFieldUpdateOperationsInput | string
   originalInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOriginalCompanyNestedInput
   carryInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCarryCompanyNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -257,6 +264,11 @@ export type CompanyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groupId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CompanyNullableScalarRelationFilter = {
+  is?: Prisma.CompanyWhereInput | null
+  isNot?: Prisma.CompanyWhereInput | null
 }
 
 export type CompanyListRelationFilter = {
@@ -297,9 +309,20 @@ export type CompanyScalarRelationFilter = {
   isNot?: Prisma.CompanyWhereInput
 }
 
-export type CompanyNullableScalarRelationFilter = {
-  is?: Prisma.CompanyWhereInput | null
-  isNot?: Prisma.CompanyWhereInput | null
+export type CompanyCreateNestedOneWithoutUsersInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutUsersInput, Prisma.CompanyUncheckedCreateWithoutUsersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutUsersInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneWithoutUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutUsersInput, Prisma.CompanyUncheckedCreateWithoutUsersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutUsersInput
+  upsert?: Prisma.CompanyUpsertWithoutUsersInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutUsersInput, Prisma.CompanyUpdateWithoutUsersInput>, Prisma.CompanyUncheckedUpdateWithoutUsersInput>
 }
 
 export type CompanyCreateNestedManyWithoutGroupInput = {
@@ -374,11 +397,60 @@ export type CompanyUpdateOneWithoutCarryInvoicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutCarryInvoicesInput, Prisma.CompanyUpdateWithoutCarryInvoicesInput>, Prisma.CompanyUncheckedUpdateWithoutCarryInvoicesInput>
 }
 
+export type CompanyCreateWithoutUsersInput = {
+  id?: string
+  name: string
+  group: Prisma.CompanyGroupCreateNestedOneWithoutCompaniesInput
+  originalInvoices?: Prisma.InvoiceCreateNestedManyWithoutOriginalCompanyInput
+  carryInvoices?: Prisma.InvoiceCreateNestedManyWithoutCarryCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutUsersInput = {
+  id?: string
+  name: string
+  groupId: string
+  originalInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOriginalCompanyInput
+  carryInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCarryCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutUsersInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutUsersInput, Prisma.CompanyUncheckedCreateWithoutUsersInput>
+}
+
+export type CompanyUpsertWithoutUsersInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutUsersInput, Prisma.CompanyUncheckedUpdateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutUsersInput, Prisma.CompanyUncheckedCreateWithoutUsersInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutUsersInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutUsersInput, Prisma.CompanyUncheckedUpdateWithoutUsersInput>
+}
+
+export type CompanyUpdateWithoutUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  group?: Prisma.CompanyGroupUpdateOneRequiredWithoutCompaniesNestedInput
+  originalInvoices?: Prisma.InvoiceUpdateManyWithoutOriginalCompanyNestedInput
+  carryInvoices?: Prisma.InvoiceUpdateManyWithoutCarryCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  groupId?: Prisma.StringFieldUpdateOperationsInput | string
+  originalInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOriginalCompanyNestedInput
+  carryInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCarryCompanyNestedInput
+}
+
 export type CompanyCreateWithoutGroupInput = {
   id?: string
   name: string
   originalInvoices?: Prisma.InvoiceCreateNestedManyWithoutOriginalCompanyInput
   carryInvoices?: Prisma.InvoiceCreateNestedManyWithoutCarryCompanyInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutGroupInput = {
@@ -386,6 +458,7 @@ export type CompanyUncheckedCreateWithoutGroupInput = {
   name: string
   originalInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOriginalCompanyInput
   carryInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCarryCompanyInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutGroupInput = {
@@ -428,6 +501,7 @@ export type CompanyCreateWithoutOriginalInvoicesInput = {
   name: string
   group: Prisma.CompanyGroupCreateNestedOneWithoutCompaniesInput
   carryInvoices?: Prisma.InvoiceCreateNestedManyWithoutCarryCompanyInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutOriginalInvoicesInput = {
@@ -435,6 +509,7 @@ export type CompanyUncheckedCreateWithoutOriginalInvoicesInput = {
   name: string
   groupId: string
   carryInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCarryCompanyInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutOriginalInvoicesInput = {
@@ -447,6 +522,7 @@ export type CompanyCreateWithoutCarryInvoicesInput = {
   name: string
   group: Prisma.CompanyGroupCreateNestedOneWithoutCompaniesInput
   originalInvoices?: Prisma.InvoiceCreateNestedManyWithoutOriginalCompanyInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutCarryInvoicesInput = {
@@ -454,6 +530,7 @@ export type CompanyUncheckedCreateWithoutCarryInvoicesInput = {
   name: string
   groupId: string
   originalInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOriginalCompanyInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutCarryInvoicesInput = {
@@ -477,6 +554,7 @@ export type CompanyUpdateWithoutOriginalInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   group?: Prisma.CompanyGroupUpdateOneRequiredWithoutCompaniesNestedInput
   carryInvoices?: Prisma.InvoiceUpdateManyWithoutCarryCompanyNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutOriginalInvoicesInput = {
@@ -484,6 +562,7 @@ export type CompanyUncheckedUpdateWithoutOriginalInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groupId?: Prisma.StringFieldUpdateOperationsInput | string
   carryInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCarryCompanyNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutCarryInvoicesInput = {
@@ -502,6 +581,7 @@ export type CompanyUpdateWithoutCarryInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   group?: Prisma.CompanyGroupUpdateOneRequiredWithoutCompaniesNestedInput
   originalInvoices?: Prisma.InvoiceUpdateManyWithoutOriginalCompanyNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutCarryInvoicesInput = {
@@ -509,6 +589,7 @@ export type CompanyUncheckedUpdateWithoutCarryInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groupId?: Prisma.StringFieldUpdateOperationsInput | string
   originalInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOriginalCompanyNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyGroupInput = {
@@ -521,6 +602,7 @@ export type CompanyUpdateWithoutGroupInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   originalInvoices?: Prisma.InvoiceUpdateManyWithoutOriginalCompanyNestedInput
   carryInvoices?: Prisma.InvoiceUpdateManyWithoutCarryCompanyNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutGroupInput = {
@@ -528,6 +610,7 @@ export type CompanyUncheckedUpdateWithoutGroupInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   originalInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOriginalCompanyNestedInput
   carryInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCarryCompanyNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutGroupInput = {
@@ -543,11 +626,13 @@ export type CompanyUncheckedUpdateManyWithoutGroupInput = {
 export type CompanyCountOutputType = {
   originalInvoices: number
   carryInvoices: number
+  users: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   originalInvoices?: boolean | CompanyCountOutputTypeCountOriginalInvoicesArgs
   carryInvoices?: boolean | CompanyCountOutputTypeCountCarryInvoicesArgs
+  users?: boolean | CompanyCountOutputTypeCountUsersArgs
 }
 
 /**
@@ -574,6 +659,13 @@ export type CompanyCountOutputTypeCountCarryInvoicesArgs<ExtArgs extends runtime
   where?: Prisma.InvoiceWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -582,6 +674,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   group?: boolean | Prisma.CompanyGroupDefaultArgs<ExtArgs>
   originalInvoices?: boolean | Prisma.Company$originalInvoicesArgs<ExtArgs>
   carryInvoices?: boolean | Prisma.Company$carryInvoicesArgs<ExtArgs>
+  users?: boolean | Prisma.Company$usersArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -610,6 +703,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   group?: boolean | Prisma.CompanyGroupDefaultArgs<ExtArgs>
   originalInvoices?: boolean | Prisma.Company$originalInvoicesArgs<ExtArgs>
   carryInvoices?: boolean | Prisma.Company$carryInvoicesArgs<ExtArgs>
+  users?: boolean | Prisma.Company$usersArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -625,6 +719,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     group: Prisma.$CompanyGroupPayload<ExtArgs>
     originalInvoices: Prisma.$InvoicePayload<ExtArgs>[]
     carryInvoices: Prisma.$InvoicePayload<ExtArgs>[]
+    users: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1027,6 +1122,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   group<T extends Prisma.CompanyGroupDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyGroupDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyGroupClient<runtime.Types.Result.GetResult<Prisma.$CompanyGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   originalInvoices<T extends Prisma.Company$originalInvoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$originalInvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   carryInvoices<T extends Prisma.Company$carryInvoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$carryInvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  users<T extends Prisma.Company$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1500,6 +1596,30 @@ export type Company$carryInvoicesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.InvoiceScalarFieldEnum | Prisma.InvoiceScalarFieldEnum[]
+}
+
+/**
+ * Company.users
+ */
+export type Company$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 
 /**

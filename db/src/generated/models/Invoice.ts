@@ -510,10 +510,6 @@ export type EnumInvoiceStatusFieldUpdateOperationsInput = {
   set?: $Enums.InvoiceStatus
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type InvoiceCreateNestedOneWithoutApprovalsInput = {
   create?: Prisma.XOR<Prisma.InvoiceCreateWithoutApprovalsInput, Prisma.InvoiceUncheckedCreateWithoutApprovalsInput>
   connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutApprovalsInput
