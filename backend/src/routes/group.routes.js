@@ -1,16 +1,15 @@
-import { Router } from "express";
+import express from "express";
 import {auth} from "../middleware/auth.js";
-import prisma from "../config/prisma.js";
+import {rbac} from "../middleware/rbac.js";
+import { createGroup } from "../controllers/group.controller.js";
 
-const router = Router();
+const router = express.Router();
 
-router.use(auth);
-
-router.get("/", async (req, res) => {
-  const groups = await prisma.companyGroup.findMany({
-    include: { companies: true }
-  });
-  res.json(groups);
-});
+router.post(
+  "/",
+  auth,
+  rbac("SUPER_ADMIN"),
+  createGroup
+);
 
 export default router;
