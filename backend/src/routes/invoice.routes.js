@@ -1,48 +1,34 @@
-import express from "express";
-import { authenticate } from "../middleware/auth.js";
-import { authorize } from "../middleware/rbac.js";
-import {
-  createInvoice,
-  submitInvoice,
-  approveInvoice,
-  rejectInvoice,
-  getMyInvoices
-} from "../controllers/invoice.controller.js";
+import { Router } from "express";
+import {auth} from "../middleware/auth.js";
+import {rbac} from "../middleware/rbac.js";
+import * as invoiceController from "../controllers/invoice.controller.js";
 
-const router = express.Router();
+const router = Router();
 
-router.post(
-  "/",
-  authenticate,
-  authorize(["BU"]),
-  createInvoice
-);
+router.use(auth);
 
-router.post(
-  "/:id/submit",
-  authenticate,
-  authorize(["BU"]),
-  submitInvoice
-);
+// BU
+router.post("/", rbac(["BU"]), invoiceController.createInvoice);
+router.post("/:id/submit", rbac(["BU"]), invoiceController.submitInvoice);
 
+// Approvals
 router.post(
   "/:id/approve",
-  authenticate,
-  authorize(["BU_MANAGER", "COMPANY"]),
-  approveInvoice
+  rbac(["BU_MANAGER", "COMPANY"]),
+  invoiceController.approveInvoice
 );
 
 router.post(
   "/:id/reject",
-  authenticate,
-  authorize(["BU_MANAGER", "COMPANY"]),
-  rejectInvoice
+  rbac(["BU_MANAGER", "COMPANY"]),
+  invoiceController.rejectInvoice
 );
 
+// View
 router.get(
-  "/my",
-  authenticate,
-  getMyInvoices
+  "/",
+  rbac(["SUPER_ADMIN", "BU", "BU_MANAGER", "COMPANY"]),
+  invoiceController.getInvoices
 );
 
 export default router;
