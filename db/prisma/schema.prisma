@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  BU_MANAGER
+  BU
+  COMPANY
+}
+
+enum InvoiceType {
+  REGULAR
+  CARRY
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SUBMITTED
+  PENDING_BU_MANAGER_APPROVAL
+  PENDING_CARRY_COMPANY_APPROVAL
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  role      Role
+  createdAt DateTime @default(now())
+
+  // Relations
+  managedGroups CompanyGroup[]       @relation("GroupManager")
+  assignedGroups BUGroupAssignment[] @relation("BUAssignments")
+  createdInvoices Invoice[]          @relation("InvoiceCreator")
+  approvals       InvoiceApproval[]   @relation("Approver")
+}
+
+model CompanyGroup {
+  id        String   @id @default(uuid())
+  name      String
+  managerId String
+
+  manager   User     @relation("GroupManager", fields: [managerId], references: [id])
+  companies Company[]
+  assignments BUGroupAssignment[]
+
+  @@unique([name, managerId]) // Optional: prevent duplicate group names per manager
+}
+
+model Company {
+  id      String @id @default(uuid())
+  name    String
+  groupId String
+
+  group    CompanyGroup @relation(fields: [groupId], references: [id])
+  originalInvoices Invoice[] @relation("OriginalCompany")
+  carryInvoices    Invoice[] @relation("CarryCompany")
+
+  @@unique([name, groupId])
+}
+
+model BUGroupAssignment {
+  id      String @id @default(uuid())
+  buId    String
+  groupId String
+
+  bu      User         @relation("BUAssignments", fields: [buId], references: [id])
+  group   CompanyGroup @relation(fields: [groupId], references: [id])
+
+  @@unique([buId, groupId])
+}
+
+model Invoice {
+  id                String        @id @default(uuid())
+  type              InvoiceType
+  status            InvoiceStatus @default(DRAFT)
+  originalCompanyId String
+  carryCompanyId    String?       // Null for REGULAR invoices
+  buId              String        // Who created the invoice (BU user)
+  createdAt         DateTime      @default(now())
+
+  // Relations
+  originalCompany Company       @relation("OriginalCompany", fields: [originalCompanyId], references: [id])
+  carryCompany    Company?      @relation("CarryCompany", fields: [carryCompanyId], references: [id])
+  creator         User          @relation("InvoiceCreator", fields: [buId], references: [id])
+  approvals       InvoiceApproval[]
+}
+
+model InvoiceApproval {
+  id        String   @id @default(uuid())
+  invoiceId String
+  approverId String
+  role      Role     // Will be BU_MANAGER or COMPANY
+  decision  String   // "APPROVED" or "REJECTED"
+  remarks   String   @default("")
+  createdAt DateTime @default(now())
+
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  approver  User     @relation("Approver", fields: [approverId], references: [id])
+
+  @@unique([invoiceId, approverId]) // One approval per person per invoice
+}
+
